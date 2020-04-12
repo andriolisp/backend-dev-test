@@ -2,21 +2,52 @@
   "name": "backend-dev-test",
   "version": "1.0.0",
   "description": "Test for Ultimate.ai",
-  "main": "index.js",
-  "scripts": {
-    "start": "tsc && node dist/app.js",
-    "test": "mocha -r ts-node/register src/**/*.test.ts"
+  "main": "dist/index.js",
+  "engines": {
+    "node": ">=11.10"
   },
-  "author": "Carlos Andrioli",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andriolisp/backend-dev-test"
+  },
+  "scripts": {
+    "build": "yarn && yarn run lint && tsc && yarn run format",
+    "start": "yarn run build && node dist/index.js",
+    "test": "mocha -r ts-node/register src/**/*.test.ts",
+    "lint": "tsc --noEmit && eslint \"**/*.ts\" --quiet --fix && tslint -p tsconfig.json",
+    "watch": "tsc -w",
+    "format": "prettier --write \"src/**/*.ts\" \"dist/**/*.js\"",
+    "docker-build": "docker build -t andriolisp/backend-dev-test .",
+    "docker-start": "yarn run docker-build && docker run --name backend-dev-test -it --rm andriolisp/backend-dev-test:latest",
+    "clean-node": "rm -rf ./dist",
+    "clean-dependencies": "rm -rf ./node_modules && rm -rf yarn.lock && rm -rf package-lock.json",
+    "clean": "yarn run clean-node && yarn run clean-dependencies"
+  },
+  "readmeFilename": "README.md",
+  "author": {
+    "name": "Carlos Andrioli",
+    "email": "carlos.andrioli@gmail.com"
+  },
   "license": "ISC",
   "devDependencies": {
     "@types/chai": "^4.2.11",
     "@types/mocha": "^7.0.2",
     "@types/node": "^13.11.1",
+    "@typescript-eslint/eslint-plugin": "^2.27.0",
+    "@typescript-eslint/parser": "^2.27.0",
     "chai": "^4.2.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-import-resolver-typescript": "^2.0.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.2",
     "mocha": "^7.1.1",
+    "prettier": "^2.0.4",
     "ts-node": "^8.8.2",
     "tslint": "^6.1.1",
+    "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.8.3"
   }
 }
