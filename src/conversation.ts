@@ -54,6 +54,7 @@ export default class Conversation {
 
   /**
    * Process the response, try to find the correct the answer and update the flow
+   * Time Complexity - O(1)
    * @param reply is the answer for the current dlow
    * @returns the next state of the flow or the current state with the exception message.
    */
